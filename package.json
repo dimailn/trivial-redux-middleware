@@ -1,0 +1,24 @@
+{
+  "name": "trivial-redux-middleware",
+  "version": "0.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "description": "The official fetch middleware for trivial-redux",
+  "scripts": {
+    "build": "coffee --print src/*.coffee | babel --presets env > lib/index.js",
+    "pub": "npm run build && npm publish"
+  },
+  "author": {
+    "name": "Dmitry Sadovsky",
+    "email": "dimailn9@gmail.com"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "coffeescript": "^2.0.1"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "lodash": "^4.17.4"
+  }
+}
