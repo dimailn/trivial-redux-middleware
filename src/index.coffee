@@ -1,11 +1,15 @@
 import _ from 'lodash'
 import axios from 'axios'
-import {camelizeKeys} from 'humps'
+import {camelizeKeys} from 'humpsnpm '
 
 module.exports = ({dispatch}) -> (next) -> (action) ->
   return next(action) unless action.types and action.meta?.fetch
 
+  {types} = action
+  action = _.pickBy(action, (value, key) -> key is 'types')
   action = _.cloneDeep action
+  action.types = types
+
   {fetch} = action.meta
   fetch.method ?= 'GET'
   console.error('The property action.meta.fetch must be an object') if typeof fetch isnt 'object'
