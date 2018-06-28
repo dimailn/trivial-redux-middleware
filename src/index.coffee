@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import axios from 'axios'
+import {camelizeKeys} from 'humps'
 
 module.exports = ({dispatch}) -> (next) -> (action) ->
   return next(action) unless action.types and action.meta?.fetch
@@ -11,6 +12,9 @@ module.exports = ({dispatch}) -> (next) -> (action) ->
 
   try
     result = await axios(fetch)
+
+    result = camelizeKeys(result) if action.camelizeKeys
+
     dispatch(
       type: action.types.success
       payload: result.data
