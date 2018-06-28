@@ -6,7 +6,7 @@ module.exports = ({dispatch}) -> (next) -> (action) ->
   return next(action) unless action.types and action.meta?.fetch
 
   {types} = action
-  action = _.pickBy(action, (value, key) -> key is 'types')
+  action = _.pickBy(action, (value, key) -> key isnt 'types')
   action = _.cloneDeep action
   action.types = types
 
