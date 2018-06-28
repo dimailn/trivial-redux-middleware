@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import axios from 'axios'
-import {camelizeKeys} from 'humpsnpm '
+import {camelizeKeys} from 'humps'
 
 module.exports = ({dispatch}) -> (next) -> (action) ->
   return next(action) unless action.types and action.meta?.fetch
