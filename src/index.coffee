@@ -3,12 +3,11 @@ import axios from 'axios'
 
 module.exports = ({dispatch}) -> (next) -> (action) ->
   return next(action) unless action.types and action.meta?.fetch
-  console.log action
+
   action = _.cloneDeep action
   {fetch} = action.meta
   fetch.method ?= 'GET'
   console.error('The property action.meta.fetch must be an object') if typeof fetch isnt 'object'
-  # console.error('HTTP method for network queries is required') unless fetch.method?
 
   try
     result = await axios(fetch)
