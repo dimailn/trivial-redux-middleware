@@ -15,7 +15,7 @@ module.exports = ({dispatch}) -> (next) -> (action) ->
   console.error('The property action.meta.fetch must be an object') if typeof fetch isnt 'object'
 
   if action.camelizeKeys
-    ['params', 'data'].forEach((prop) -> action[prop] = decamelizeKeys(action[prop]))
+    ['params', 'data'].forEach((prop) -> action.meta.fetch[prop] = decamelizeKeys(action.meta.fetch[prop]))
 
   try
     result = await axios(fetch)
