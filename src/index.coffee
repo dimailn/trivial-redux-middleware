@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import axios from 'axios'
-import {camelizeKeys} from 'humps'
+import {camelizeKeys, decamelizeKeys} from 'humps'
 
 module.exports = ({dispatch}) -> (next) -> (action) ->
   return next(action) unless action.types and action.meta?.fetch
@@ -13,6 +13,9 @@ module.exports = ({dispatch}) -> (next) -> (action) ->
   {fetch} = action.meta
   fetch.method ?= 'GET'
   console.error('The property action.meta.fetch must be an object') if typeof fetch isnt 'object'
+
+  if action.camelizeKeys
+    ['params', 'data'].forEach((prop) -> action[prop] = decamelizeKeys(action[prop]))
 
   try
     result = await axios(fetch)
