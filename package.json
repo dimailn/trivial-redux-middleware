@@ -5,23 +5,44 @@
   "license": "MIT",
   "description": "The official fetch middleware for trivial-redux",
   "scripts": {
-    "build": "coffee --print src/*.coffee | babel --presets env > lib/index.js",
-    "pub": "npm run build && npm publish"
+    "build": "coffee --print src/*.coffee | babel --presets env --plugins transform-runtime > lib/index.js",
+    "pub": "npm run build && npm publish",
+    "test": "jest --no-cache"
   },
   "author": {
     "name": "Dmitry Sadovsky",
     "email": "dimailn9@gmail.com"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
+    "babel-jest": "^23.2.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "coffeescript": "^2.0.1"
+    "coffeescript": "^2.0.1",
+    "jest": "^23.3.0",
+    "trivial-redux": "^1.7.0"
   },
   "dependencies": {
     "axios": "^0.16.2",
     "humps": "^2.0.1",
     "lodash": "^4.17.4"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "coffee"
+    ],
+    "transform": {
+      "^.+\\.coffee$": "./jest-preprocessor.js"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.js(x)",
+      "**/__tests__/**/*.coffee",
+      "*/?(*.)(spec|test).js(x)",
+      "*/?(*.)(spec|test).coffee"
+    ]
   }
 }
