@@ -40,7 +40,7 @@
     },
     "testMatch": [
       "**/__tests__/**/*.js(x)",
-      "**/__tests__/**/*.coffee",
+      "**/__tests__/**/*.test.coffee",
       "*/?(*.)(spec|test).js(x)",
       "*/?(*.)(spec|test).coffee"
     ]
