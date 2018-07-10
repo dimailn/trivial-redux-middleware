@@ -5,10 +5,7 @@ import {camelizeKeys, decamelizeKeys} from 'humps'
 module.exports = ({dispatch}) -> (next) -> (action) ->
   return next(action) unless action.types and action.meta?.fetch
 
-  {types} = action
-  action = _.pickBy(action, (value, key) -> key isnt 'types')
-  action = _.cloneDeep action
-  action.types = types
+  action = _.cloneDeep(action)
 
   {fetch} = action.meta
   fetch.method ?= 'GET'
@@ -17,6 +14,8 @@ module.exports = ({dispatch}) -> (next) -> (action) ->
   if action.camelizeKeys
     ['params', 'data'].forEach((prop) -> action.meta.fetch[prop] = decamelizeKeys(action.meta.fetch[prop]))
 
+  next(type: action.types.load, meta: action.meta)
+  
   try
     result = await axios(fetch)
 
@@ -38,4 +37,3 @@ module.exports = ({dispatch}) -> (next) -> (action) ->
     )
     return error
 
-  next(type: action.types.load, meta: action.meta)
