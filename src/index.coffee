@@ -14,8 +14,8 @@ module.exports = ({dispatch}) -> (next) -> (action) ->
   if action.camelizeKeys
     ['params', 'data'].forEach((prop) -> action.meta.fetch[prop] = decamelizeKeys(action.meta.fetch[prop]))
 
-  next(type: action.types.load, meta: action.meta)
-  
+  next(type: action.types.load, meta: action.meta) unless action.isRequest
+
   try
     result = await axios(fetch)
 
@@ -26,7 +26,7 @@ module.exports = ({dispatch}) -> (next) -> (action) ->
       payload: result.data
       response: result
       meta: action.meta
-    )
+    ) unless action.isRequest
     return result
   catch error
     dispatch(
@@ -34,6 +34,6 @@ module.exports = ({dispatch}) -> (next) -> (action) ->
       payload: error.data
       response: error
       meta: action.meta
-    )
+    ) unless action.isRequest
     return error
 
