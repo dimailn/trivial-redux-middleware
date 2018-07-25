@@ -41,7 +41,7 @@ describe 'middleware', ->
   test 'road of fire', ->
     anotherApi = trivialRedux(nonExistent: '~non_existent')
 
-    await middleware(anotherApi.actions.nonExistent.index())
+    await expect(middleware(anotherApi.actions.nonExistent.index())).rejects.toThrow(/404/)
 
     expect(emittedActions.length).toBe 1
     expect(dispatchedActions.length).toBe 1
