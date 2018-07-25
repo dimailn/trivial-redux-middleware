@@ -16,24 +16,29 @@ module.exports = ({dispatch}) -> (next) -> (action) ->
 
   next(type: action.types.load, meta: action.meta) unless action.isRequest
 
-  try
-    result = await axios(fetch)
 
-    result = camelizeKeys(result) if action.camelizeKeys
+  axios(fetch)
+    .then(
+      (result) ->
+        result = camelizeKeys(result) if action.camelizeKeys
 
-    dispatch(
-      type: action.types.success
-      payload: result.data
-      response: result
-      meta: action.meta
-    ) unless action.isRequest
-    return result
-  catch error
-    dispatch(
-      type: action.types.failure
-      payload: error.data
-      response: error
-      meta: action.meta
-    ) unless action.isRequest
-    throw error
+        dispatch(
+          type: action.types.success
+          payload: result.data
+          response: result
+          meta: action.meta
+        ) unless action.isRequest
+
+        result
+
+      (error) ->
+        dispatch(
+          type: action.types.failure
+          payload: error.data
+          response: error
+          meta: action.meta
+        ) unless action.isRequest
+
+        Promise.reject error
+    )
 
