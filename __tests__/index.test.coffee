@@ -49,4 +49,10 @@ describe 'middleware', ->
     expect(emittedActions[0].type).toBe anotherApi.types.nonExistent.index.load
     expect(dispatchedActions[0].type).toBe anotherApi.types.nonExistent.index.failure
 
+  test 'request', ->
+    await middleware(api.requests.todos.index())
+
+    expect(emittedActions.length).toBe 0
+    expect(dispatchedActions.length).toBe 0
+
 
