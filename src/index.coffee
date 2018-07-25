@@ -35,5 +35,5 @@ module.exports = ({dispatch}) -> (next) -> (action) ->
       response: error
       meta: action.meta
     ) unless action.isRequest
-    return error
+    throw error
 
