@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "babel-runtime": "^6.26.0",
     "humps": "^2.0.1",
     "lodash": "^4.17.4"
   },
