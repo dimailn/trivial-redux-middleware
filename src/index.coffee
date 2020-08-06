@@ -1,11 +1,11 @@
-import _ from 'lodash'
+import cloneDeep from 'lodash.clonedeep'
 import axios from 'axios'
 import {camelizeKeys, decamelizeKeys} from 'humps'
 
 module.exports = ({dispatch}) -> (next) -> (action) ->
   return next(action) unless action.types and action.meta?.fetch
 
-  action = _.cloneDeep(action)
+  action = cloneDeep(action)
 
   {fetch} = action.meta
   fetch.method ?= 'GET'
